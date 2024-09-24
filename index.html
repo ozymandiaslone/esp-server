@@ -1,0 +1,29 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ESP32 Web Server</title>
+    <style>
+      body { font-family: Arial; text-align: center; }
+      button { padding: 10px; background-color: #007BFF; color: white; border: none; cursor: pointer; }
+      button:hover { background-color: #0056b3; }
+    </style>
+  </head>
+  <body>
+    <h1>ESP32 Web Server</h1>
+    <p>LED State: <span id="ledState">OFF</span></p>
+    <button onclick="toggleLED()">Toggle LED</button>
+    <script>
+      function toggleLED() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/toggle', true);
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState == 4 && xhr.status == 200) {
+            document.getElementById('ledState').innerHTML = xhr.responseText;
+          }
+        };
+        xhr.send();
+      }
+    </script>
+  </body>
+</html>
